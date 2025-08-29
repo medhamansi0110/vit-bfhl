@@ -3,14 +3,14 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
-app.use(express.json()); // parse JSON bodies
+app.use(express.json()); 
 
-// TODO: Put your actual details here:
-const USER_ID = "medha_mansi_01102004".toLowerCase(); // e.g. "john_doe_17091999"
+
+const USER_ID = "medha_mansi_01102004".toLowerCase(); 
 const EMAIL = "medha.mansi2022@vitstudent.ac.in";
 const ROLL_NUMBER = "22BCE0468";
 
-// Helpers
+
 const isNumericString = (s) => /^[0-9]+$/.test(s);
 const isAlphaString = (s) => /^[A-Za-z]+$/.test(s);
 
@@ -41,7 +41,7 @@ app.post("/bfhl", (req, res) => {
     const special_characters = [];
     let sum = 0;
 
-    // Collect letters from ALL alphabetic tokens, in encounter order
+   
     const letterChars = [];
 
     for (const item of arr) {
@@ -51,9 +51,9 @@ app.post("/bfhl", (req, res) => {
         const n = parseInt(token, 10);
         sum += n;
         if (n % 2 === 0) {
-          even_numbers.push(token); // keep as string
+          even_numbers.push(token); 
         } else {
-          odd_numbers.push(token); // keep as string
+          odd_numbers.push(token); 
         }
       } else if (isAlphaString(token)) {
         alphabets.push(token.toUpperCase());
@@ -63,7 +63,7 @@ app.post("/bfhl", (req, res) => {
       }
     }
 
-    // Build concat_string: reverse letters, alternating caps starting UPPER
+    
     const reversed = letterChars.slice().reverse().map((ch) => ch.toUpperCase());
     const alt = reversed.map((ch, i) => (i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase()));
     const concat_string = alt.join("");
@@ -77,7 +77,7 @@ app.post("/bfhl", (req, res) => {
       even_numbers,
       alphabets,
       special_characters,
-      sum: String(sum), // sum must be string
+      sum: String(sum), 
       concat_string
     });
   } catch (err) {
@@ -97,6 +97,6 @@ app.post("/bfhl", (req, res) => {
   }
 });
 
-// Health-tip: keep only /bfhl route as required
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`API running on :${PORT}`));
